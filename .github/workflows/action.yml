@@ -25,10 +25,16 @@ jobs:
       run: python -m pip install --upgrade torequests     
     - name: 'Install js2py'
       run: python -m pip install --upgrade js2py
-      name: 'Install wheel'
+    - name: 'Install wheel'
       run: python -m pip install --upgrade wheel
     - name: 'Install pyjsparser' 
       run: python -m pip install --upgrade pyjsparser
+    - name: 'Install re'
+      run: python -m pip install --upgrade re
+    - name: 'Install time' 
+      run: python -m pip install --upgrade time
+    - name: 'Install datetime' 
+      run: python -m pip install --upgrade datetime
     - name: 'Post push'
       env:
           POST_URL: ${{ secrets.POST_URL }}
