@@ -18,6 +18,10 @@ jobs:
         python-version: '3.x'
     - name: 'Install dependencies'
       run: python -m pip install --upgrade requests
+    - name: 'Install libxml2' 
+      run: python -m pip install --upgrade libxml2
+    - name: 'Install libxslt'
+      run: python -m pip install --upgrade libxslt   
     - name: 'Install lxml' 
       run: python -m pip install --upgrade lxml
     - name: 'Install torequests'
