@@ -8,8 +8,28 @@ from urllib import parse
 from lxml import etree
 import time
 import datetime
+from requests.adapters import HTTPAdapter
+import re
+import js2py
+import os
 
+# 获得cookie
+def getcookies():
+    url = 'https://www.hostloc.com/forum.php?mod=forumdisplay&fid=45&filter=author&orderby=dateline'
+    js = js2py.EvalJs()
+    headers = {'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36'}
+    aesjs = requests.get("https://www.hostloc.com/aes.min.js", headers=headers, timeout=5).text
+    js.execute(aesjs)
+    getcookie = requests.get(url).text
+    getcookie_script = re.findall("<script>(.*?)</script>",getcookie)
+    js.execute(getcookie_script[0].split("document")[0])
+    data = js.toHex(js.slowAES.decrypt(js.c, 2, js.a, js.b))
+    cookie = "L7DFW=" + data
+    return cookie
 
+if __name__ == "__main__":
+    post_u = os.environ["POST_URL"]
+    tg_id = os.environ["TG_ID"]
 # 获得日期
 def get_week_day(date):
     week_day_dict = {
